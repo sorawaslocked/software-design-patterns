@@ -1,5 +1,5 @@
 public class DriverManager {
-    private static DriverManager instance = null;
+    private static DriverManager instance;
 
     private DriverManager() {
 
