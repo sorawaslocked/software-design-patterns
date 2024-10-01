@@ -1,13 +1,11 @@
 public class Main {
     public static void main(String[] args) {
-        Driver2 driver = new Driver2.DriverBuilder()
-                .withName("Johny Silverhand")
-                .withCarModel("Porshe 911")
-                .withLicenseNumber("XYZ12345")
-                .withExperienceYears(5)
-                .isAvailable(true)
-                .build();
+        Factory factory = new StandardTaxiFactory();
+        Taxi taxi = factory.createTaxi("Daniele", "XYZ12345");
+        taxi.takePassenger("Sam");
 
-        System.out.println(driver);
+        factory = new PremiumTaxiFactory();
+        taxi = factory.createTaxi("Daniele", "XYZ12345");
+        taxi.takePassenger("Max");
     }
 }
