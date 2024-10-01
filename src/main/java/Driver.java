@@ -10,13 +10,11 @@ public class Driver implements Prototype<Driver> {
         this.carModel = carModel;
     }
 
-
     public Driver(String name, String carModel, String carMake) {
         this.name = name;
         this.carModel = carModel;
         this.carMake = carMake;
     }
-
 
     public Driver(String name, String carModel, String carMake, String age) {
         this.name = name;
@@ -27,7 +25,7 @@ public class Driver implements Prototype<Driver> {
 
     @Override
     public Driver clone() {
-        return new Driver(this.name, this.carModel, this.carMake, this.age);
+        return new Driver(name, carModel, carMake, age);
     }
 
     public String getName() {
