@@ -1,3 +1,5 @@
+package creational;
+
 public class Driver2 {
     private String name;
     private String carModel;
@@ -15,7 +17,7 @@ public class Driver2 {
 
     @Override
     public String toString() {
-        return "Driver2{" +
+        return "creationalpatterns.Driver2{" +
                 "name='" + name + '\'' +
                 ", carModel='" + carModel + '\'' +
                 ", licenseNumber='" + licenseNumber + '\'' +

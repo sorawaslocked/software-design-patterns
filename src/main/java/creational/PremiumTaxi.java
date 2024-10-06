@@ -1,3 +1,5 @@
+package creational;
+
 public class PremiumTaxi extends Taxi {
     public PremiumTaxi(String driverName, String license) {
         super(driverName, license);
