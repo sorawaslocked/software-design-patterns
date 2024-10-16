@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         testChainOfResponsibility();
         testCommand();
+        testIterator();
     }
 
     public static void testChainOfResponsibility() {
@@ -70,5 +71,31 @@ public class Main {
         }
 
         manager.showAllOrders();
+
+        System.out.println();
+    }
+
+    public static void testIterator() {
+        System.out.println("***** ITERATOR *****");
+
+        Driver driver1 = new Driver(10);
+        Driver driver2 = new Driver(5.4);
+        Driver driver3 = new Driver(6.8);
+        Driver driver4 = new Driver(3.1);
+
+        List<Driver> drivers = new ArrayList<>();
+
+        drivers.add(driver1);
+        drivers.add(driver2);
+        drivers.add(driver3);
+        drivers.add(driver4);
+
+        DriverIterator driverIterator = new DriverIterator(drivers);
+
+        Driver closestToClient = driverIterator.findClosest();
+
+        System.out.println(closestToClient.getDistanceToClient());
+
+        System.out.println();
     }
 }
