@@ -6,13 +6,13 @@ import behavioral.OrderManager;
 public class ChangeDestinationCommand extends Command {
     private String newDestination;
 
-    public ChangeDestinationCommand(OrderManager orderManager, String newDestination) {
-        super(orderManager);
+    public ChangeDestinationCommand(OrderManager orderManager, Order order, String newDestination) {
+        super(orderManager, order);
         this.newDestination = newDestination;
     }
 
     @Override
-    public void execute(Order order) {
+    public void execute() {
         orderManager.changeDestination(order, newDestination);
     }
 }

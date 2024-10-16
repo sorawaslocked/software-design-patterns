@@ -20,4 +20,12 @@ public class Order {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", destination='" + destination + '\'' +
+                '}';
+    }
 }

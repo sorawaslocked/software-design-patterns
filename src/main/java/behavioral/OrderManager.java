@@ -25,4 +25,10 @@ public class OrderManager {
             }
         }
     }
+
+    public void showAllOrders() {
+        for (Order o : orders) {
+            System.out.println(o);
+        }
+    }
 }
