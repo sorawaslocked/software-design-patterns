@@ -24,6 +24,10 @@ public class DriverIterator implements Iterator<Driver> {
         return drivers.get(currentIndex++);
     }
 
+    public void addDriver(Driver driver) {
+        drivers.add(driver);
+    }
+
     public Driver findClosest() {
         double minDistance = Double.MAX_VALUE;
         Driver closestDriver = null;
@@ -36,6 +40,9 @@ public class DriverIterator implements Iterator<Driver> {
                 closestDriver = driver;
             }
         }
+
+        drivers.remove(closestDriver);
+        currentIndex = 0;
 
         return closestDriver;
     }

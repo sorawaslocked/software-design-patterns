@@ -9,6 +9,7 @@ public class Main {
         testChainOfResponsibility();
         testCommand();
         testIterator();
+        testMediator();
     }
 
     public static void testChainOfResponsibility() {
@@ -97,5 +98,27 @@ public class Main {
         System.out.println(closestToClient.getDistanceToClient());
 
         System.out.println();
+    }
+
+    public static void testMediator() {
+        System.out.println("***** MEDIATOR *****");
+
+        List<Driver> availableDrivers = new ArrayList<>();
+        DispatchMediator mediator = new DispatchMediator(availableDrivers);
+
+        Driver driver1 = new Driver(mediator, 10);
+        driver1.notifyAvailability();
+        Driver driver2 = new Driver(mediator, 5.4);
+        driver2.notifyAvailability();
+        Driver driver3 = new Driver(mediator, 6.8);
+        driver3.notifyAvailability();
+        Driver driver4 = new Driver(mediator, 3.1);
+        driver4.notifyAvailability();
+
+        Client client1 = new Client(mediator, 1050, new Location("1st Street"));
+        Client client2 = new Client(mediator, 1000, new Location("2nd Street"));
+
+        client1.requestTaxi();
+        client2.requestTaxi();
     }
 }
