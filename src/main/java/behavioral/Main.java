@@ -1,4 +1,5 @@
-import behavioral.*;
+package behavioral;
+
 import behavioral.commands.*;
 
 import java.util.ArrayList;

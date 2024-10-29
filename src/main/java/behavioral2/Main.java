@@ -22,10 +22,10 @@ public class Main {
         Order order1 = new Order(new Location(300, 300), new Location(2500, 2500), poorClient);
         Order order2 = new Order(new Location(300, 300), new Location(5000, 5000), richClient);
 
-        OrderProcess standardOrderProcess1 = new StandardOrderProcess(drivers, order1);
-        OrderProcess standardOrderProcess2 = new StandardOrderProcess(drivers, order2);
+        OrderProcess subscriptionOrderProcess = new StandardOrderProcess(drivers, order1);
+        OrderProcess standardOrderProcess = new StandardOrderProcess(drivers, order2);
 
-        standardOrderProcess1.processOrder();
-        standardOrderProcess2.processOrder();
+        subscriptionOrderProcess.processOrder();
+        standardOrderProcess.processOrder();
     }
 }

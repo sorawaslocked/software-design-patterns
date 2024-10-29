@@ -3,6 +3,7 @@ package behavioral2.template;
 import behavioral2.Driver;
 import behavioral2.Order;
 import behavioral2.OrderState;
+import behavioral2.strategy.DistancePricingStrategy;
 
 import java.util.List;
 
@@ -13,14 +14,19 @@ public class StandardOrderProcess extends OrderProcess {
     }
 
     @Override
-    public void processOrder() {
-        if (order.getState() == OrderState.FinishedState) {
-            return;
+    protected boolean confirmOrder() {
+        boolean driverAvailable = checkAvailability();
+        boolean balanceSufficient =
+                checkClientBalance(new DistancePricingStrategy(order.getPickup(), order.getDestination()));
+
+        if (driverAvailable && balanceSufficient) {
+            order.getClient().setBalance(order.getClient().getBalance() - order.getCost());
+            availableDrivers.remove(order.getDriver());
+            order.setState(OrderState.ConfirmedState);
+
+            return true;
         }
 
-        if (confirmOrder()) {
-            dispatchTaxiToPassenger();
-            driveTaxiToDestination();
-        }
+        return false;
     }
 }

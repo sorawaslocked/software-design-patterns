@@ -39,7 +39,6 @@ public abstract class OrderProcess {
 
             if (distance <= MAX_DISTANCE_METERS) {
                 order.setDriver(driver);
-                availableDrivers.removeIf(d -> d.getId() == driver.getId());
 
                 return true;
             }
@@ -48,45 +47,19 @@ public abstract class OrderProcess {
         return false;
     }
 
-    protected double computeCost() {
-        PricingStrategy strategy = new DistancePricingStrategy(order.getPickup(), order.getDestination());
-
-        double cost = strategy.computeCost();
-
-        order.setCost(cost);
-
-        return cost;
-    }
-
-    protected boolean checkClientBalance() {
-
-        double cost = computeCost();
+    protected boolean checkClientBalance(PricingStrategy pricingStrategy) {
+        double cost = pricingStrategy.computeCost();
 
         if (cost <= order.getClient().getBalance()) {
-            order.getClient().setBalance(order.getClient().getBalance() - cost);
+            order.setCost(cost);
+
             return true;
         }
 
         return false;
     }
 
-    protected boolean confirmOrder() {
-
-        boolean driverAvailable = checkAvailability();
-        boolean sufficientBalance = checkClientBalance();
-
-        if (driverAvailable && sufficientBalance) {
-            order.setState(OrderState.ConfirmedState);
-
-            return true;
-        } else {
-            availableDrivers.add(order.getDriver());
-            order.getClient().setBalance(order.getClient().getBalance() + computeCost());
-            order.setState(OrderState.FinishedState);
-
-            return false;
-        }
-    }
+    protected abstract boolean confirmOrder();
 
     protected void dispatchTaxiToPassenger() {
         order.setState(OrderState.EnRouteState);
@@ -142,5 +115,14 @@ public abstract class OrderProcess {
         scheduler2.scheduleAtFixedRate(moveTask, 0, 1, TimeUnit.SECONDS);
     }
 
-    public abstract void processOrder();
+    public void processOrder() {
+        if (order.getState() == OrderState.FinishedState) {
+            return;
+        }
+
+        if (confirmOrder()) {
+            dispatchTaxiToPassenger();
+            driveTaxiToDestination();
+        }
+    }
 }
